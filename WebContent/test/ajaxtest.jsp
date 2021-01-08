@@ -12,6 +12,7 @@
 <script>
 	function idCheck(){
 		 var xhttp = new XMLHttpRequest();
+
 		 //  해당 함수는 통신이 끝나면 콜백
 		  xhttp.onreadystatechange = function() {
 		    if (this.readyState == 4 && this.status == 200) {
@@ -24,9 +25,10 @@
 				}
 		    }
 		  };
-		  xhttp.open("GET", "http://localhost:8000/blog/ajax", true);
+		  xhttp.open("GET", "http://localhost:8080/blog/ajax", true);
 		  xhttp.send();
 	}
 </script>
 </body>
 </html>
+

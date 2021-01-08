@@ -11,11 +11,13 @@
 <button onclick="idCheck()">아이디 있니?</button>
 <div id="box"></div>
 <script>
+	
 	function idCheck(){
-		$.ajax("http://localhost:8000/blog/ajax").done(function(data){
+		 $.ajax("http://localhost:8080/blog/ajax").done(function(data){
 			alert(data);
-		});
+		 });
 	}
 </script>
 </body>
 </html>
+

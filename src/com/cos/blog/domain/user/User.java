@@ -8,8 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class User {
 	private int id;
@@ -17,6 +17,6 @@ public class User {
 	private String password;
 	private String email;
 	private String address;
-	private String userRole; //admin, user
+	private String userRole; // admin, user
 	private Timestamp createDate;
 }

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +18,7 @@ import com.cos.blog.domain.user.dto.LoginReqDto;
 import com.cos.blog.service.UserService;
 import com.cos.blog.util.Script;
 
-
+// http://localhost:8000/blog/user
 @WebServlet("/user")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,19 +30,21 @@ public class UserController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
 	}
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
 	}
 	
-	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
+	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cmd = request.getParameter("cmd");
 		UserService userService = new UserService();
-		//http://localhost:8000/blog/user?cmd=loginForm
+		// http://localhost:8080/blog/user?cmd=loginForm
 		if(cmd.equals("loginForm")) {
-			response.sendRedirect("user/loginForm.jsp");
+			RequestDispatcher dis =
+					request.getRequestDispatcher("user/loginForm.jsp");
+			dis.forward(request, response);
 		}else if(cmd.equals("login")) {
-			//서비스 호출
+			// 서비스 호출
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			LoginReqDto dto = new LoginReqDto();
@@ -50,14 +53,17 @@ public class UserController extends HttpServlet {
 			User userEntity = userService.로그인(dto);
 			if(userEntity != null) {
 				HttpSession session = request.getSession();
-				session.setAttribute("principal", userEntity);//인증 주체
+				session.setAttribute("principal", userEntity); // 인증주체
 				response.sendRedirect("index.jsp");
 			}else {
-				Script.back(response, "로그인 실패");
+				Script.back(response, "로그인실패");
 			}
 		}else if(cmd.equals("joinForm")) {
-			response.sendRedirect("user/joinForm.jsp");
+			RequestDispatcher dis =
+					request.getRequestDispatcher("user/joinForm.jsp");
+			dis.forward(request, response);
 		}else if(cmd.equals("join")) {
+			// 서비스 호출
 			String username = request.getParameter("username");
 			String password = request.getParameter("password");
 			String email = request.getParameter("email");
@@ -69,10 +75,10 @@ public class UserController extends HttpServlet {
 			dto.setAddress(address);
 			System.out.println("회원가입 : "+dto);
 			int result = userService.회원가입(dto);
-			if(result==1) {
+			if(result == 1) {
 				response.sendRedirect("index.jsp");
 			}else {
-				Script.back(response, "회원가입실패");
+				Script.back(response, "회원가입 실패");
 			}
 		}else if(cmd.equals("usernameCheck")) {
 			BufferedReader br = request.getReader();
@@ -80,7 +86,7 @@ public class UserController extends HttpServlet {
 			System.out.println(username);
 			int result = userService.유저네임중복체크(username);
 			PrintWriter out = response.getWriter();
-			if(result==1) {
+			if(result == 1) {
 				out.print("ok");
 			}else {
 				out.print("fail");
@@ -92,4 +98,5 @@ public class UserController extends HttpServlet {
 			response.sendRedirect("index.jsp");
 		}
 	}
+
 }

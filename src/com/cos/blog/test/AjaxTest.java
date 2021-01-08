@@ -9,24 +9,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+// http://localhost:8080/blog/ajax (GET, POST)
 @WebServlet("/ajax")
-public class AjaxTest extends HttpServlet{
+public class AjaxTest extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
-	private static final long serialVersionUID=1L;
-	
-	public AjaxTest() {
-		super();
+    public AjaxTest() {
+        super();
+    }
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
 	}
-	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doPost(req, resp);
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		PrintWriter out = resp.getWriter();
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 데이터 응답
+		PrintWriter out = response.getWriter();
 		out.print("ok");
 		out.flush();
+		//response.sendRedirect("index.jsp");
 	}
+
 }

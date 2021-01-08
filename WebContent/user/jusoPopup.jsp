@@ -9,6 +9,7 @@
 	//request.setCharacterEncoding("EUC-KR");  //해당시스템의 인코딩타입이 EUC-KR일경우에
 	String inputYn = request.getParameter("inputYn"); 
 	String roadFullAddr = request.getParameter("roadFullAddr"); 
+
 %>
 </head>
 <script language="javascript">
@@ -22,7 +23,7 @@
 
 function init(){
 	var url = location.href;
-	var confmKey = "U01TX0FVVEgyMDIxMDEwNDEyMjUxMjExMDYxODI=";
+	var confmKey = "U01TX0FVVEgyMDIxMDEwNDEyMjQwOTExMDYxNzk=";
 	var resultType = "4"; // 도로명주소 검색결과 화면 출력내용, 1 : 도로명, 2 : 도로명+지번+상세보기(관련지번, 관할주민센터), 3 : 도로명+상세보기(상세건물명), 4 : 도로명+지번+상세보기(관련지번, 관할주민센터, 상세건물명)
 	var inputYn= "<%=inputYn%>";
 	if(inputYn != "Y"){

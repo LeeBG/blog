@@ -12,12 +12,13 @@
 <div id="box"></div>
 <script>
 	function idCheck(){
-		$.ajax("http://localhost:8000/blog/ajax").then(function(data){
+		 fetch("http://localhost:8080/blog/ajax").then(function(data){
 			return data.text();
-		}).then(function(data){
+		 }).then(function(data){
 			alert(data);
 		});
 	}
 </script>
 </body>
 </html>
+

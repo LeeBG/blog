@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- prefix="c"라고 적으면 uri의 모든 것을 사용가능하다. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,8 +15,14 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 </head>
 <body>
+
 	<nav class="navbar navbar-expand-md bg-dark navbar-dark">
 		<a class="navbar-brand" href="<%=request.getContextPath()%>/index.jsp">블로그</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -31,7 +36,8 @@
 						<li class="nav-item"><a class="nav-link"
 							href="<%=request.getContextPath()%>/board?cmd=saveForm">글쓰기</a></li>
 						<li class="nav-item"><a class="nav-link"
-							href="<%=request.getContextPath()%>/user?cmd=updateForm">회원정보</a></li>
+							href="<%=request.getContextPath()%>/user?cmd=updateForm">회원정보</a>
+						</li>
 						<li class="nav-item"><a class="nav-link"
 							href="<%=request.getContextPath()%>/user?cmd=logout">로그아웃</a></li>
 					</ul>
@@ -44,10 +50,10 @@
 							href="<%=request.getContextPath()%>/user?cmd=joinForm">회원가입</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="<%=request.getContextPath()%>/user?cmd=loginForm">로그인</a></li>
-
 					</ul>
 				</div>
 			</c:otherwise>
 		</c:choose>
+
 	</nav>
 	<br>

@@ -1,6 +1,5 @@
 package com.cos.blog.config;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -12,23 +11,24 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CharConfig implements Filter{
+public class ForbiddenUrlConfig implements  Filter{
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
     	HttpServletResponse response = (HttpServletResponse) resp;
+    	
+    	
+    	if(request.getRequestURI().equals("/blog/")||request.getRequestURI().equals("/blog/index.jsp")) {
+    		chain.doFilter(request, response);
+    	}else {
+    		PrintWriter out = response.getWriter();
+    		out.print("잘못된 접근입니다.");
+    		out.flush();
+    	}
 		
-     	request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=utf-8");
-		
-//		String username = request.getParameter("username");
-//		System.out.println("username : "+username);
-//		
-//		PrintWriter out = response.getWriter();
-//		out.println("안녕");
-//		out.flush();
-		chain.doFilter(request, response);
 	}
+	
+
 }
