@@ -11,7 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ForbiddenUrlConfig implements  Filter{
+public class ForbiddenUrlConfig implements  Filter{		//.jsp로 접근하는 것을 막아준다
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
