@@ -5,11 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.cos.blog.config.DB;
+import com.cos.blog.domain.board.dto.UpdateReqDto;
 import com.cos.blog.domain.user.User;
 import com.cos.blog.domain.user.UserDao;
 import com.cos.blog.domain.user.dto.JoinReqDto;
 import com.cos.blog.domain.user.dto.LoginReqDto;
-import com.cos.blog.domain.user.dto.UpdateReqDto;
 import com.mysql.cj.xdevapi.PreparableStatement;
 
 public class UserService {

@@ -9,6 +9,7 @@ import java.util.List;
 import com.cos.blog.config.DB;
 import com.cos.blog.domain.board.dto.DetailRespDto;
 import com.cos.blog.domain.board.dto.SaveReqDto;
+import com.cos.blog.domain.board.dto.UpdateReqDto;
 
 
 public class BoardDao {
@@ -87,7 +88,7 @@ public class BoardDao {
 		StringBuffer sb = new StringBuffer();
 		sb.append("select b.id, b.title, b.content, b.readCount,b.userId, u.username ");
 		sb.append("from board b inner join user u ");
-		sb.append("on b.userId=u.id ");
+		sb.append("on b.userId = u.id ");
 		sb.append("where b.id = ?");
 		
 		String sql = sb.toString();
@@ -135,7 +136,7 @@ public class BoardDao {
 		return -1;
 	}
 	
-	public int deleteById(int id) {
+	public int deleteById(int id) { //게시글 삭제
 		String sql = "DELETE FROM board WHERE id=?";
 		Connection conn = DB.getConnection();
 		PreparedStatement pstmt = null;
@@ -151,4 +152,25 @@ public class BoardDao {
 		}
 		return -1;
 	}
+	
+	public int update(UpdateReqDto dto) {	//게시글 수정
+		String sql = "Update board SET title = ?, content = ? WHERE id = ?";
+		Connection conn = DB.getConnection();
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getTitle());
+			pstmt.setString(2,dto.getContent());
+			pstmt.setInt(3,dto.getId());
+			int result = pstmt.executeUpdate();
+			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {//무조건 실행
+			DB.close(conn, pstmt);
+		}
+		return -1;
+	}
+
+
 }
