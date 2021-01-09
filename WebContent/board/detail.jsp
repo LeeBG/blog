@@ -14,7 +14,34 @@
 	</form> 얘 안씀 - DELETE요청:삭제 FORM태그로 할 수 없음  삭제할 때는 항상 -->
 	<!-- POST,GET,DELETE,PUT => POST,GET-->
 	<!-- 인증 + 권한이 필요함 -->
-	<button class="btn btn-danger" onClick="deleteById(${dto.id})">삭제</button>
+	<c:if test="${sessionScope.principal.id == dto.userId}">
+		<a href="/blog/board?cmd=updateForm&id=${dto.id}" class="btn btn-warning" >수정</a>
+		<button class="btn btn-danger" onClick="deleteById(${dto.id})">삭제</button>
+	</c:if>
+	
+	<script>
+		function deleteById(boardId){
+			//요청과 응답 을 json
+			var data = {
+					boardId: boardId
+			}
+			
+			$.ajax({
+				type: "post",
+				url: "/blog/board?cmd=delete",
+				data: JSON.stringify(data),
+				contentType: "application/json; charset=utf-8",
+				dataType:"json"
+			}).done(function(result){
+				console.log(result);
+				if(result.status =="ok"){
+					location.href="index.jsp";
+				}else{
+					alert("삭제에 실패하였습니다.");
+				}
+			});
+		}
+	</script>
 
 	<br />
 	<br />
@@ -73,16 +100,7 @@
 	</div>
 	<!-- 댓글 박스 끝 -->
 </div>
-<script>
-	function deleteById(id){
-		//ajax로 delete 요청(Method: POST)
-		$.ajax().done(function(result){
-			if(result=="ok"){
-				location.href="index.jsp";
-			}
-		});
-	}
-</script>
+
 </body>
 </html>
 
